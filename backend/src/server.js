@@ -3,6 +3,8 @@ const express = require('express')
 const morgan = require('morgan')
 const dotenv = require('dotenv')
 
+const taskRouter = require('./routes/taskRoutes')
+
 // Insert config
 dotenv.config({ path: './config.env' })
 
@@ -15,7 +17,8 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
 
-console.log(process.env.DATABASE_LOCAL)
+// Routes
+app.use('/api/v1/tasks', taskRouter)
 
 // Connect to DB
 mongoose
