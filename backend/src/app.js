@@ -58,7 +58,7 @@ app.all(/.*/, (req, res) => {
   res.status(404).json({ status: 'fail', message: 'Route not found.' })
 })
 
-// Global error handler LAST
+// Global error handler
 app.use(errorHandler)
 
 module.exports = app
