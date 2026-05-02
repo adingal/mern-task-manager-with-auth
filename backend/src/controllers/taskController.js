@@ -1,6 +1,6 @@
 const Task = require('../models/taskModel')
 
-exports.getAllTasks = async (req, res) => {
+exports.getAllTasks = async (req, res, next) => {
   try {
     const tasks = await Task.find()
 
@@ -10,14 +10,11 @@ exports.getAllTasks = async (req, res) => {
       data: tasks,
     })
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      error,
-    })
+    next(error)
   }
 }
 
-exports.getTask = async (req, res) => {
+exports.getTask = async (req, res, next) => {
   try {
     const task = await Task.findById(req.params.id)
 
@@ -26,14 +23,11 @@ exports.getTask = async (req, res) => {
       data: task,
     })
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      error,
-    })
+    next(error)
   }
 }
 
-exports.createTask = async (req, res) => {
+exports.createTask = async (req, res, next) => {
   try {
     const task = await Task.create(req.body)
 
@@ -42,14 +36,11 @@ exports.createTask = async (req, res) => {
       data: task,
     })
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      error,
-    })
+    next(error)
   }
 }
 
-exports.updateTask = async (req, res) => {
+exports.updateTask = async (req, res, next) => {
   try {
     const { title, description, completed } = req.body
     const task = await Task.findByIdAndUpdate(
@@ -67,22 +58,16 @@ exports.updateTask = async (req, res) => {
       data: task,
     })
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      error,
-    })
+    next(error)
   }
 }
 
-exports.deleteTask = async (req, res) => {
+exports.deleteTask = async (req, res, next) => {
   try {
     await Task.findByIdAndDelete(req.params.id)
 
     res.status(204).end()
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      error,
-    })
+    next(error)
   }
 }
