@@ -1,9 +1,26 @@
+import { useEffect, useState } from 'react'
 import './App.css'
 import Container from './components/Container'
 import TextInput from './components/TextInput'
 import TaskList from './components/TaskList'
 
 function App() {
+  const [tasks, setTasks] = useState([])
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const res = await fetch(`http://127.0.0.1:3000/api/v1/tasks`)
+        const { data } = await res.json()
+        setTasks(data)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchTasks()
+  }, [])
+
   return (
     <main>
       <header className="bg-black mb-4">
@@ -14,7 +31,7 @@ function App() {
         </Container>
       </header>
       <TextInput />
-      <TaskList />
+      <TaskList tasks={tasks} />
     </main>
   )
 }
