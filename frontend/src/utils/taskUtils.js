@@ -27,3 +27,21 @@ export const editTask = async (id, updates) => {
   const { data } = await res.json()
   return data
 }
+
+export const deleteTask = async (id) => {
+  const res = await fetch(`http://127.0.0.1:3000/api/v1/tasks/${id}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  })
+
+  if (!res.ok) {
+    throw new Error(`Failed to delete task. Status: ${res.status}`)
+  }
+
+  try {
+    const { data } = await res.json()
+    return data
+  } catch {
+    return null
+  }
+}

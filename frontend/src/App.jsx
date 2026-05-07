@@ -4,7 +4,7 @@ import Container from './components/Container'
 import TextInput from './components/TextInput'
 import TaskList from './components/TaskList'
 
-import { addTask, editTask } from './utils/taskUtils'
+import { addTask, editTask, deleteTask } from './utils/taskUtils'
 
 function App() {
   const [tasks, setTasks] = useState([])
@@ -44,6 +44,15 @@ function App() {
     }
   }
 
+  const handleDeleteTask = async (id) => {
+    try {
+      await deleteTask(id)
+      setTasks((prev) => prev.filter((t) => t._id !== id))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <main>
       <header className="bg-black mb-4">
@@ -58,7 +67,11 @@ function App() {
         onEdit={handleEditTask}
         onEditTask={onEditTask}
       />
-      <TaskList tasks={tasks} setOnEditTask={setOnEditTask} />
+      <TaskList
+        tasks={tasks}
+        setOnEditTask={setOnEditTask}
+        onDelete={handleDeleteTask}
+      />
     </main>
   )
 }
