@@ -4,6 +4,8 @@ import Container from './components/Container'
 import TextInput from './components/TextInput'
 import TaskList from './components/TaskList'
 
+import { addTask } from './utils/taskUtils'
+
 function App() {
   const [tasks, setTasks] = useState([])
 
@@ -21,6 +23,15 @@ function App() {
     fetchTasks()
   }, [])
 
+  const handleAddTask = async (task) => {
+    try {
+      const res = await addTask(task)
+      setTasks((prev) => [...prev, res])
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <main>
       <header className="bg-black mb-4">
@@ -30,7 +41,7 @@ function App() {
           </p>
         </Container>
       </header>
-      <TextInput />
+      <TextInput onAdd={handleAddTask} />
       <TaskList tasks={tasks} />
     </main>
   )
