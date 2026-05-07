@@ -3,7 +3,7 @@ import Container from './Container'
 import editIcon from '../assets/edit.svg'
 import deleteIcon from '../assets/delete.svg'
 
-function TaskList({ tasks }) {
+function TaskList({ tasks, setOnEditTask }) {
   return (
     <section>
       <Container>
@@ -19,7 +19,10 @@ function TaskList({ tasks }) {
                     </span>
                   </span>
                   <span className="flex flex-row gap-2 ml-auto">
-                    <button className="bg-green-400 py-1 px-2 rounded-md cursor-pointer">
+                    <button
+                      onClick={() => setOnEditTask(item)}
+                      className="bg-green-400 py-1 px-2 rounded-md cursor-pointer"
+                    >
                       <img className="h-4" src={editIcon} alt="Edit" />
                     </button>
                     <button className="bg-red-400 py-1 px-2 rounded-md cursor-pointer">

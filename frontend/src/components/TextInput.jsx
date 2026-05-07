@@ -1,14 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from './Container'
 
-function TextInput({ onAdd }) {
+const initialFormData = {
+  title: '',
+  description: '',
+}
+
+function TextInput({ onAdd, onEdit, onEditTask }) {
+  const [formData, setFormData] = useState(initialFormData)
+
+  useEffect(() => {
+    if (onEditTask) {
+      setFormData({
+        ...onEditTask,
+      })
+    }
+  }, [onEditTask])
+
   const onFormSubmit = (e) => {
     e.preventDefault()
-    const formData = new FormData(e.target)
-    const title = formData.get('title')
-    const description = formData.get('description')
+    if (!onEditTask) {
+      onAdd(formData)
+    } else {
+      onEdit(formData)
+    }
+    setFormData(initialFormData)
+  }
 
-    onAdd({ title, description })
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
   }
 
   return (
@@ -18,20 +42,24 @@ function TextInput({ onAdd }) {
           <div className="flex flex-col gap-2">
             <div className="flex flex-row">
               <input
+                onChange={handleInputChange}
                 className="w-full bg-gray-200 p-3 rounded-l-md"
                 type="text"
                 name="title"
+                value={formData.title}
               />
               <button
                 className="bg-gray-400 py-2 px-4 rounded-r-md cursor-pointer hover:bg-gray-500 transition-colors"
                 type="submit"
               >
-                Add
+                {onEditTask ? 'Edit' : 'Add'}
               </button>
             </div>
             <textarea
+              onChange={handleInputChange}
               className="w-full bg-gray-200 p-3 rounded-md"
               name="description"
+              value={formData.description}
             ></textarea>
           </div>
         </form>

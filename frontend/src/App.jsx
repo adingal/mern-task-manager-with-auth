@@ -4,10 +4,11 @@ import Container from './components/Container'
 import TextInput from './components/TextInput'
 import TaskList from './components/TaskList'
 
-import { addTask } from './utils/taskUtils'
+import { addTask, editTask } from './utils/taskUtils'
 
 function App() {
   const [tasks, setTasks] = useState([])
+  const [onEditTask, setOnEditTask] = useState(null)
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -32,6 +33,17 @@ function App() {
     }
   }
 
+  const handleEditTask = async (task) => {
+    try {
+      const { _id, title, description, completed } = task
+      const updatedTask = await editTask(_id, { title, description, completed })
+      setTasks((prev) => prev.map((t) => (t._id === _id ? updatedTask : t)))
+      setOnEditTask(null)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <main>
       <header className="bg-black mb-4">
@@ -41,8 +53,12 @@ function App() {
           </p>
         </Container>
       </header>
-      <TextInput onAdd={handleAddTask} />
-      <TaskList tasks={tasks} />
+      <TextInput
+        onAdd={handleAddTask}
+        onEdit={handleEditTask}
+        onEditTask={onEditTask}
+      />
+      <TaskList tasks={tasks} setOnEditTask={setOnEditTask} />
     </main>
   )
 }
