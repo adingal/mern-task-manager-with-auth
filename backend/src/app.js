@@ -35,7 +35,7 @@ app.use(limiter)
 app.use(
   cors({
     origin: 'http://localhost:5173', // frontend origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true,
   }),
 )
