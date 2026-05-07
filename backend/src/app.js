@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 
 // Security
 const rateLimit = require('express-rate-limit')
@@ -29,6 +30,15 @@ const limiter = rateLimit({
   message: 'Too many request from this IP, please try again in an hour.',
 })
 app.use(limiter)
+
+// Allow requests from frontend dev server
+app.use(
+  cors({
+    origin: 'http://localhost:5173', // frontend origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  }),
+)
 
 // Parse incoming request to JSON
 app.use(express.json({ limit: '10kb' }))
