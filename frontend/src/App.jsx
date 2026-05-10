@@ -9,6 +9,7 @@ import { addTask, editTask, deleteTask } from './utils/taskUtils'
 function App() {
   const [tasks, setTasks] = useState([])
   const [onEditTask, setOnEditTask] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -18,6 +19,8 @@ function App() {
         setTasks(data)
       } catch (error) {
         console.error(error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
@@ -67,11 +70,17 @@ function App() {
         onEdit={handleEditTask}
         onEditTask={onEditTask}
       />
-      <TaskList
-        tasks={tasks}
-        setOnEditTask={setOnEditTask}
-        onDelete={handleDeleteTask}
-      />
+      {isLoading ? (
+        <Container>
+          <p className="text-sm text-gray-500 text-center">Loading tasks...</p>
+        </Container>
+      ) : (
+        <TaskList
+          tasks={tasks}
+          setOnEditTask={setOnEditTask}
+          onDelete={handleDeleteTask}
+        />
+      )}
     </main>
   )
 }
