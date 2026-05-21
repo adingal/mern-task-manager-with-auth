@@ -1,9 +1,16 @@
 import React from 'react'
+import { editTask } from '../utils/taskUtils'
 import Container from './Container'
 import editIcon from '../assets/edit.svg'
 import deleteIcon from '../assets/delete.svg'
 
-function TaskList({ tasks, setOnEditTask, onDelete }) {
+function TaskList({ tasks, setTasks, setOnEditTask, onDelete }) {
+  const handleToggleComplete = (task) => {
+    const updatedTask = { ...task, completed: !task.completed }
+    editTask(task._id, updatedTask)
+    setTasks((prev) => prev.map((t) => (t._id === task._id ? updatedTask : t)))
+  }
+
   return (
     <section>
       <Container>
@@ -13,7 +20,11 @@ function TaskList({ tasks, setOnEditTask, onDelete }) {
               <li className="cursor-pointer" key={item._id}>
                 <span className="w-full flex flex-row gap-2">
                   <span className="flex flex-row gap-2">
-                    <input type="checkbox" />
+                    <input
+                      type="checkbox"
+                      checked={item.completed}
+                      onChange={() => handleToggleComplete(item)}
+                    />
                     <span className="text-base text-gray-700">
                       {item.title}
                     </span>

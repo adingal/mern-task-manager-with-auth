@@ -77,6 +77,7 @@ function App() {
       ) : (
         <TaskList
           tasks={tasks}
+          setTasks={setTasks}
           setOnEditTask={setOnEditTask}
           onDelete={handleDeleteTask}
         />
