@@ -25,7 +25,9 @@ function TaskList({ tasks, setTasks, setOnEditTask, onDelete }) {
                       checked={item.completed}
                       onChange={() => handleToggleComplete(item)}
                     />
-                    <span className="text-base text-gray-700">
+                    <span
+                      className={`text-base text-gray-700 ${item.completed ? 'line-through' : ''}`}
+                    >
                       {item.title}
                     </span>
                   </span>
