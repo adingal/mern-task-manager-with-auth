@@ -77,7 +77,7 @@ function TextInput({ onAdd, onEdit, onEditTask }) {
             <div className="relative flex flex-col gap-0">
               <textarea
                 onChange={handleInputChange}
-                className="w-full bg-gray-200 p-3 rounded-md"
+                className="w-full bg-gray-200 p-3 rounded-md h-24 resize-none"
                 name="description"
                 value={formData.description}
               ></textarea>
