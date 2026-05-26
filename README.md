@@ -1,5 +1,5 @@
 📝 Task Manager App (MERN)
-A simple yet scalable Task Manager built with the MERN stack (MongoDB, Express, React, Node.js).
+A simple Task Manager built with the MERN stack (MongoDB, Express, React, Node.js).
 This project helps users create, update, and manage tasks efficiently, while serving as a learning path for full-stack development.
 
 🚀 Features
@@ -12,10 +12,10 @@ Responsive UI with React
 RESTful API with Express + MongoDB
 
 🛠️ Tech Stack
-Frontend: React, Context API, Axios
+Frontend: Vite + React
 
 Backend: Node.js, Express.js
 
 Database: MongoDB (Mongoose ODM)
 
-Styling: CSS/SCSS
+Styling: TailwindCSS
