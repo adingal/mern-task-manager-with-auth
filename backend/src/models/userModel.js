@@ -4,31 +4,33 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'A user must have a name.'],
+    trim: true,
+    minlength: [8, 'A name must have 8 or more characters.'],
+    maxlength: [30, 'A name must have 30 or less characters.'],
   },
   email: {
     type: String,
     unique: true,
-    required: [true, 'A task must have a name.'],
+    required: [true, 'A user must have an email.'],
     trim: true,
-    minLength: [10, 'A task name must have 10 or more characters.'],
-    maxLength: [40, 'A task name must have 40 or less characters.'],
+    minLength: [10, 'An email must have 10 or more characters.'],
+    maxLength: [40, 'An email must have 40 or less characters.'],
   },
   role: {
     type: String,
-    enum: ['user', 'guide', 'lead-guide', 'admin'],
+    enum: ['user', 'admin'],
     default: 'user',
   },
   password: {
     type: String,
     required: [true, 'Please provide a password.'],
-    minlength: 8,
+    minlength: [8, 'A password must have atleast 8 or more characters.'],
     select: false,
   },
   passwordConfirm: {
     type: String,
     required: [true, 'Please confirm your password.'],
     validate: {
-      // Only works on create and save
       validator: function (el) {
         return el === this.password
       },
