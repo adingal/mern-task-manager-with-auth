@@ -10,6 +10,7 @@ const mongoSanitize = require('express-mongo-sanitize')
 const xss = require('xss-clean')
 
 const taskRouter = require('./routes/taskRoutes')
+const userRouter = require('./routes/userRoutes')
 const errorHandler = require('./utils/errorHandler')
 
 // App
@@ -62,6 +63,7 @@ app.use(xss())
 
 // Routes
 app.use('/api/v1/tasks', taskRouter)
+app.use('/api/v1/users', userRouter)
 
 // Catch-all for unmatched routes
 app.all(/.*/, (req, res) => {
