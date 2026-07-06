@@ -29,7 +29,7 @@ exports.getTask = async (req, res, next) => {
 
 exports.createTask = async (req, res, next) => {
   try {
-    const task = await Task.create(req.body)
+    const task = await Task.create({ ...req.body, user: req.user._id })
 
     res.status(201).json({
       status: 'success',
