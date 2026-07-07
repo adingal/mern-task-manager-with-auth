@@ -22,8 +22,8 @@ router
 
 router
   .route('/:id')
-  .get(getUser)
-  .patch(updateUser)
+  .get(protect, getUser)
+  .patch(protect, updateUser)
   .delete(protect, restrictTo('admin'), deleteUser)
 
 module.exports = router

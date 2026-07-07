@@ -14,6 +14,10 @@ const router = express.Router()
 
 router.route('/').get(protect, getAllTasks).post(protect, createTask)
 
-router.route('/:id').get(getTask).patch(updateTask).delete(deleteTask)
+router
+  .route('/:id')
+  .get(getTask)
+  .patch(protect, updateTask)
+  .delete(protect, deleteTask)
 
 module.exports = router
