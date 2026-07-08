@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react'
-import './App.css'
-import Container from './components/Container'
-import TextInput from './components/TextInput'
-import TaskList from './components/TaskList'
+import Container from '../components/Container'
 
-import { addTask, editTask, deleteTask } from './utils/taskUtils'
-
-function App() {
+function Admin() {
   return (
     <main>
       <header className="bg-black mb-4">
@@ -16,9 +11,9 @@ function App() {
           </p>
         </Container>
       </header>
-      <div className="text-center">Home</div>
+      <div className="text-center">Admin</div>
     </main>
   )
 }
 
-export default App
+export default Admin
