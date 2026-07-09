@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import './App.css'
-import Container from './components/Container'
-import TextInput from './components/TextInput'
-import TaskList from './components/TaskList'
-import LoginForm from './components/LoginForm'
+import '../App.css'
+import Container from '../components/Container'
+import TextInput from '../components/TextInput'
+import TaskList from '../components/TaskList'
+import SignupForm from '../components/SignupForm'
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
       </header>
       <section>
         <Container>
-          <LoginForm />
+          <SignupForm />
         </Container>
       </section>
     </main>
