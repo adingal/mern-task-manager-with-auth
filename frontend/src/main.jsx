@@ -4,13 +4,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 import App from './App.jsx'
 import Admin from './pages/Admin.jsx'
 import UserHome from './pages/UserHome.jsx'
-import Signup from './pages/Signup.jsx'
 
 const router = createBrowserRouter([
   { path: '/', element: <App /> }, // login
   { path: '/admin', element: <Admin /> }, // admin
   { path: '/home', element: <UserHome /> }, // users
-  { path: '/signup', element: <Signup /> }, // signup
+  { path: '/signup', element: <App /> }, // signup
 ])
 
 createRoot(document.getElementById('root')).render(

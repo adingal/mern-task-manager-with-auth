@@ -28,7 +28,7 @@ const LoginForm = () => {
       onSubmit={formik.handleSubmit}
       className="bg-gray-100 border border-gray-200 p-6 rounded-sm flex flex-col gap-3"
     >
-      <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold text-gray-500 text-center mb-4">
+      <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold font-serif tracking-wide text-gray-500 text-center mb-4">
         Login
       </h1>
       <div className="relative flex flex-col gap-0 pb-4">
