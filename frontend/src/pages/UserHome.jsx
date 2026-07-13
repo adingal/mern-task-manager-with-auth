@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Header from '../components/Header'
 import Container from '../components/Container'
 import TextInput from '../components/TextInput'
 import TaskList from '../components/TaskList'
@@ -57,13 +58,7 @@ function UserHome() {
 
   return (
     <main>
-      <header className="bg-black mb-4">
-        <Container>
-          <p className="text-xl md:text-2xl lg:text-3xl text-center text-gray-200">
-            Task Manager App
-          </p>
-        </Container>
-      </header>
+      <Header />
       <TextInput
         onAdd={handleAddTask}
         onEdit={handleEditTask}
