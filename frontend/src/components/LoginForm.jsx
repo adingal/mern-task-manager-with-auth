@@ -1,9 +1,24 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
+import { loginUser } from '../store/auth/authSlice'
 
 const LoginForm = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { user, isAuthenticated, loading, error } = useSelector(
+    (state) => state.user,
+  )
+
+  useEffect(() => {
+    console.log(isAuthenticated)
+    if (isAuthenticated) {
+      navigate('/home', { replace: true })
+    }
+  }, [isAuthenticated])
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -19,7 +34,7 @@ const LoginForm = () => {
         .required('Password is required.'),
     }),
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2))
+      dispatch(loginUser(values))
     },
   })
 
