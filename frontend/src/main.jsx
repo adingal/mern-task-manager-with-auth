@@ -8,6 +8,8 @@ import App from './App.jsx'
 import Admin from './pages/Admin.jsx'
 import UserHome from './pages/UserHome.jsx'
 
+import Loader from './components/Loader.jsx'
+
 const router = createBrowserRouter([
   { path: '/', element: <App /> }, // login
   { path: '/admin', element: <Admin /> }, // admin
@@ -18,5 +20,6 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <RouterProvider router={router} />
+    <Loader />
   </Provider>,
 )

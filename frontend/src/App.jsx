@@ -11,10 +11,6 @@ import SignupForm from './components/SignupForm'
 function App() {
   const { pathname } = useLocation()
 
-  useEffect(() => {
-    console.log(pathname)
-  }, [])
-
   return (
     <main>
       <Header />
