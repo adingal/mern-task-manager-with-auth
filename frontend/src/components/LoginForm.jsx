@@ -8,14 +8,11 @@ import { loginUser } from '../store/auth/authSlice'
 const LoginForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { user, isAuthenticated, loading, error } = useSelector(
-    (state) => state.user,
-  )
+  const { user, isAuthenticated, error } = useSelector((state) => state.user)
 
   useEffect(() => {
-    console.log(isAuthenticated)
     if (isAuthenticated) {
-      navigate('/home', { replace: true })
+      navigate('/home')
     }
   }, [isAuthenticated])
 
@@ -98,6 +95,11 @@ const LoginForm = () => {
       >
         Submit
       </button>
+      {error !== null && (
+        <p className="text-xs text-red-500 text-center">
+          Email or password is incorrect.
+        </p>
+      )}
       <p className="text-xs md:text-sm lg:text-base text-center text-gray-400 hover:text-gray-500 mt-8">
         <Link to="/signup">or Sign up?</Link>
       </p>
