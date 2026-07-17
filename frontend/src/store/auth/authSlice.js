@@ -1,33 +1,34 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import auth from '../../api'
+
+const setAuthToken = (token) => {
+  if (token) {
+    localStorage.setItem('token', token)
+    auth.defaults.headers.common['Authorization'] = `Bearer ${token}`
+  } else {
+    localStorage.removeItem('token')
+    delete auth.defaults.headers.common['Authorization']
+  }
+}
 
 export const loginUser = createAsyncThunk(
   'user/loginUser',
-  async (credentials, thunkAPI) => {
+  async (credentials, { rejectWithValue }) => {
     try {
-      const res = await fetch('http://127.0.0.1:3000/api/v1/users/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(credentials),
-      })
-
-      if (!res.ok) {
-        const errorData = await res.json()
-        return thunkAPI.rejectWithValue(errorData.message || 'Login failed')
-      }
-
-      const data = await res.json()
-
-      localStorage.setItem('token', data.token)
-      return data
+      const { data } = await auth.post('/api/v1/users/login', credentials)
+      setAuthToken(data.token)
+      return data.user
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.message)
+      if (!err.response) throw err
+      return rejectWithValue(err.response.data.message || 'Login failed')
     }
   },
 )
 
 const initialState = {
   user: null,
-  isAuthenticated: false,
+  token: localStorage.getItem('token') ?? null,
+  isAuthenticated: !!localStorage.getItem('token'),
   loading: false,
   error: null,
 }
@@ -38,8 +39,9 @@ const userSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null
+      state.token = null
       state.isAuthenticated = false
-      localStorage.removeItem('token')
+      setAuthToken(null)
     },
   },
   extraReducers: (builder) => {
@@ -52,6 +54,7 @@ const userSlice = createSlice({
         state.loading = false
         state.user = action.payload
         state.isAuthenticated = true
+        state.token = localStorage.getItem('token')
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false
