@@ -1,60 +1,30 @@
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
 import Header from '../components/Header'
 import Container from '../components/Container'
 import TextInput from '../components/TextInput'
 import TaskList from '../components/TaskList'
-
-import { addTask, editTask, deleteTask } from '../utils/taskUtils'
+import {
+  fetchTasks,
+  addTaskAsync,
+  editTaskAsync,
+  deleteTaskAsync,
+} from '../store/tasks/tasksSlice'
 
 function UserHome() {
-  const [tasks, setTasks] = useState([])
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { data: tasks, loading, error } = useSelector((state) => state.tasks)
   const [onEditTask, setOnEditTask] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const res = await fetch(`http://127.0.0.1:3000/api/v1/tasks`)
-        const { data } = await res.json()
-        setTasks(data)
-      } catch (error) {
-        console.error(error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
+    dispatch(fetchTasks())
+  }, [dispatch])
 
-    fetchTasks()
-  }, [])
-
-  const handleAddTask = async (task) => {
-    try {
-      const res = await addTask(task)
-      setTasks((prev) => [...prev, res])
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const handleEditTask = async (task) => {
-    try {
-      const { _id, title, description, completed } = task
-      const updatedTask = await editTask(_id, { title, description, completed })
-      setTasks((prev) => prev.map((t) => (t._id === _id ? updatedTask : t)))
-      setOnEditTask(null)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const handleDeleteTask = async (id) => {
-    try {
-      await deleteTask(id)
-      setTasks((prev) => prev.filter((t) => t._id !== id))
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  const handleAddTask = (task) => dispatch(addTaskAsync(task))
+  const handleEditTask = (task) => dispatch(editTaskAsync(task))
+  const handleDeleteTask = (id) => dispatch(deleteTaskAsync(id))
 
   return (
     <main>
@@ -62,18 +32,22 @@ function UserHome() {
       <TextInput
         onAdd={handleAddTask}
         onEdit={handleEditTask}
+        setOnEditTask={setOnEditTask}
         onEditTask={onEditTask}
       />
-      {isLoading ? (
+      {loading ? (
         <Container>
           <p className="text-sm text-gray-500 text-center">Loading tasks...</p>
+        </Container>
+      ) : error ? (
+        <Container>
+          <p className="text-sm text-red-500 text-center">{error}</p>
         </Container>
       ) : (
         <TaskList
           tasks={tasks}
-          setTasks={setTasks}
-          setOnEditTask={setOnEditTask}
           onDelete={handleDeleteTask}
+          setOnEditTask={setOnEditTask}
         />
       )}
     </main>

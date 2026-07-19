@@ -1,14 +1,20 @@
 import React from 'react'
-import { editTask } from '../utils/taskUtils'
+import { useDispatch } from 'react-redux'
 import Container from './Container'
 import editIcon from '../assets/edit.svg'
 import deleteIcon from '../assets/delete.svg'
+import { editTaskAsync, deleteTaskAsync } from '../store/tasks/tasksSlice'
 
-function TaskList({ tasks, setTasks, setOnEditTask, onDelete }) {
+function TaskList({ tasks, setOnEditTask }) {
+  const dispatch = useDispatch()
+
   const handleToggleComplete = (task) => {
     const updatedTask = { ...task, completed: !task.completed }
-    editTask(task._id, updatedTask)
-    setTasks((prev) => prev.map((t) => (t._id === task._id ? updatedTask : t)))
+    dispatch(editTaskAsync(updatedTask))
+  }
+
+  const handleDelete = (id) => {
+    dispatch(deleteTaskAsync(id))
   }
 
   return (
@@ -26,7 +32,9 @@ function TaskList({ tasks, setTasks, setOnEditTask, onDelete }) {
                       onChange={() => handleToggleComplete(item)}
                     />
                     <span
-                      className={`text-base text-gray-700 ${item.completed ? 'line-through' : ''}`}
+                      className={`text-base text-gray-700 ${
+                        item.completed ? 'line-through' : ''
+                      }`}
                     >
                       {item.title}
                     </span>
@@ -39,7 +47,7 @@ function TaskList({ tasks, setTasks, setOnEditTask, onDelete }) {
                       <img className="h-4" src={editIcon} alt="Edit" />
                     </button>
                     <button
-                      onClick={() => onDelete(item._id)}
+                      onClick={() => handleDelete(item._id)}
                       className="bg-red-400 py-1 px-2 rounded-md cursor-pointer"
                     >
                       <img className="h-4" src={deleteIcon} alt="Delete" />

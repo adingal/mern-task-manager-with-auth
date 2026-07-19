@@ -7,7 +7,7 @@ const initialFormData = {
   description: '',
 }
 
-function TextInput({ onAdd, onEdit, onEditTask }) {
+function TextInput({ onAdd, onEdit, onEditTask, setOnEditTask }) {
   const [formData, setFormData] = useState(initialFormData)
   const [errors, setErrors] = useState({})
 
@@ -33,6 +33,7 @@ function TextInput({ onAdd, onEdit, onEditTask }) {
       onAdd(result.sanitized)
     } else {
       onEdit(result.sanitized)
+      setOnEditTask(null)
     }
 
     setFormData(initialFormData)
