@@ -16,11 +16,16 @@ function UserHome() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { data: tasks, loading, error } = useSelector((state) => state.tasks)
+  const { isAuthenticated } = useSelector((state) => state.user)
   const [onEditTask, setOnEditTask] = useState(null)
 
   useEffect(() => {
     dispatch(fetchTasks())
   }, [dispatch])
+
+  useEffect(() => {
+    if (!isAuthenticated) navigate('/')
+  }, [isAuthenticated])
 
   const handleAddTask = (task) => dispatch(addTaskAsync(task))
   const handleEditTask = (task) => dispatch(editTaskAsync(task))
@@ -41,7 +46,7 @@ function UserHome() {
         </Container>
       ) : error ? (
         <Container>
-          <p className="text-sm text-red-500 text-center">{error}</p>
+          <p className="text-sm text-red-500 text-center">{error.message}</p>
         </Container>
       ) : (
         <TaskList
