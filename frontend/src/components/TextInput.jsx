@@ -57,13 +57,13 @@ function TextInput({ onAdd, onEdit, onEditTask, setOnEditTask }) {
               <div className="flex flex-row">
                 <input
                   onChange={handleInputChange}
-                  className="w-full bg-gray-200 p-3 rounded-l-md"
+                  className="w-full bg-gray-200 p-3 rounded-l-md text-gray-600"
                   type="text"
                   name="title"
                   value={formData.title}
                 />
                 <button
-                  className="bg-gray-400 py-2 px-4 rounded-r-md cursor-pointer hover:bg-gray-500 transition-colors"
+                  className="bg-gray-400 py-2 px-4 rounded-r-md cursor-pointer hover:bg-gray-500 transition-colors text-sm uppercase text-gray-800"
                   type="submit"
                 >
                   {onEditTask ? 'Edit' : 'Add'}
@@ -78,7 +78,7 @@ function TextInput({ onAdd, onEdit, onEditTask, setOnEditTask }) {
             <div className="relative flex flex-col gap-0">
               <textarea
                 onChange={handleInputChange}
-                className="w-full bg-gray-200 p-3 rounded-md h-24 resize-none"
+                className="w-full bg-gray-200 p-3 rounded-md h-24 resize-none text-gray-600"
                 name="description"
                 value={formData.description}
               ></textarea>

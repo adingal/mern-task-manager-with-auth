@@ -32,7 +32,7 @@ function TaskList({ tasks, setOnEditTask }) {
                       onChange={() => handleToggleComplete(item)}
                     />
                     <span
-                      className={`text-base text-gray-700 ${
+                      className={`text-base text-gray-600 ${
                         item.completed ? 'line-through' : ''
                       }`}
                     >
