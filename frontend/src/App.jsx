@@ -5,7 +5,7 @@ import Header from './components/Header'
 import Container from './components/Container'
 import TextInput from './components/TextInput'
 import LoginForm from './components/LoginForm'
-import SignupForm from './components/SignupForm'
+import CreateUser from './components/CreateUser'
 
 function App() {
   const { pathname } = useLocation()
@@ -15,7 +15,7 @@ function App() {
       <Header />
       <section>
         <Container>
-          {pathname === '/' ? <LoginForm /> : <SignupForm />}
+          {pathname === '/' ? <LoginForm /> : <CreateUser />}
         </Container>
       </section>
     </main>

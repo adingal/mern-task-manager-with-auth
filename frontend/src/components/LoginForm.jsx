@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { Link, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from '../store/auth/authSlice'
 
@@ -100,9 +100,6 @@ const LoginForm = () => {
           Email or password is incorrect.
         </p>
       )}
-      <p className="text-xs md:text-sm lg:text-base text-center text-gray-400 hover:text-gray-500 mt-8">
-        <Link to="/signup">or Sign up?</Link>
-      </p>
     </form>
   )
 }
