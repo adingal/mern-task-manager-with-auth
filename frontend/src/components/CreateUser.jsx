@@ -1,9 +1,8 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { Link } from 'react-router'
 
-const SignupForm = () => {
+const CreateUser = () => {
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -110,11 +109,8 @@ const SignupForm = () => {
       >
         Submit
       </button>
-      <p className="text-xs md:text-sm lg:text-base text-center text-gray-400 hover:text-gray-500 mt-8">
-        <Link to="/">or Login?</Link>
-      </p>
     </form>
   )
 }
 
-export default SignupForm
+export default CreateUser
