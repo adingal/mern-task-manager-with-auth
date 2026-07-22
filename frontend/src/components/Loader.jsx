@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 const Loader = () => {
-  const isLoading = useSelector((state) => state.user.loading)
+  const isLoading = useSelector((state) => state.auth.loading)
 
   if (!isLoading) return
 

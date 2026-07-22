@@ -6,7 +6,7 @@ import Container from './Container'
 
 function Header() {
   const dispatch = useDispatch()
-  const { isAuthenticated } = useSelector((state) => state.user)
+  const { isAuthenticated } = useSelector((state) => state.auth)
 
   return (
     <header className="bg-gray-700 mb-4">

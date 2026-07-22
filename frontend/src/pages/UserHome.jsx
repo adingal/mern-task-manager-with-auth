@@ -16,7 +16,7 @@ function UserHome() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { data: tasks, loading, error } = useSelector((state) => state.tasks)
-  const { isAuthenticated } = useSelector((state) => state.user)
+  const { isAuthenticated } = useSelector((state) => state.auth)
   const [onEditTask, setOnEditTask] = useState(null)
 
   useEffect(() => {

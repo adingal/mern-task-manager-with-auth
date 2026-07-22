@@ -12,12 +12,16 @@ const setAuthToken = (token) => {
 }
 
 export const loginUser = createAsyncThunk(
-  'user/loginUser',
+  'auth/loginUser',
   async (credentials, { rejectWithValue }) => {
     try {
       const { data } = await auth.post('/api/v1/users/login', credentials)
-      setAuthToken(data.token)
-      return data.user
+      const {
+        token,
+        data: { user },
+      } = data
+      setAuthToken(token)
+      return user
     } catch (err) {
       if (!err.response) throw err
       return rejectWithValue(err.response.data.message || 'Login failed')
@@ -33,8 +37,8 @@ const initialState = {
   error: null,
 }
 
-const userSlice = createSlice({
-  name: 'user',
+const authSlice = createSlice({
+  name: 'auth',
   initialState,
   reducers: {
     logout: (state) => {
@@ -63,5 +67,5 @@ const userSlice = createSlice({
   },
 })
 
-export const { logout } = userSlice.actions
-export default userSlice.reducer
+export const { logout } = authSlice.actions
+export default authSlice.reducer
