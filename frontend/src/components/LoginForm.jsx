@@ -8,11 +8,15 @@ import { loginUser } from '../store/auth/authSlice'
 const LoginForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { user, isAuthenticated, error } = useSelector((state) => state.user)
+  const { user, isAuthenticated, error } = useSelector((state) => state.auth)
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/home')
+      if (user.role !== 'admin') {
+        navigate('/home')
+      } else {
+        navigate('/admin')
+      }
     }
   }, [isAuthenticated])
 
