@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router'
 import Header from '../components/Header'
 import Container from '../components/Container'
 import TextInput from '../components/TextInput'
@@ -14,18 +13,12 @@ import {
 
 function UserHome() {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const { data: tasks, loading, error } = useSelector((state) => state.tasks)
-  const { isAuthenticated } = useSelector((state) => state.auth)
   const [onEditTask, setOnEditTask] = useState(null)
 
   useEffect(() => {
     dispatch(fetchTasks())
   }, [dispatch])
-
-  useEffect(() => {
-    if (!isAuthenticated) navigate('/')
-  }, [isAuthenticated])
 
   const handleAddTask = (task) => dispatch(addTaskAsync(task))
   const handleEditTask = (task) => dispatch(editTaskAsync(task))

@@ -10,11 +10,26 @@ import UserHome from './pages/UserHome.jsx'
 import NotFound from './pages/NotFound.jsx'
 
 import Loader from './components/Loader.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
 
 const router = createBrowserRouter([
   { path: '/', element: <App /> }, // login
-  { path: '/admin', element: <Admin /> }, // admin
-  { path: '/home', element: <UserHome /> }, // users
+  {
+    path: '/admin',
+    element: (
+      <ProtectedRoute>
+        <Admin />
+      </ProtectedRoute>
+    ),
+  }, // admin
+  {
+    path: '/home',
+    element: (
+      <ProtectedRoute>
+        <UserHome />
+      </ProtectedRoute>
+    ),
+  }, // users
   { path: '/user/create', element: <App /> }, // signup
   { path: '*', element: <NotFound /> }, // 404 page
 ])
