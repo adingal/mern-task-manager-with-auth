@@ -11,14 +11,14 @@ const LoginForm = () => {
   const { user, isAuthenticated, error } = useSelector((state) => state.auth)
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && user) {
       if (user.role !== 'admin') {
         navigate('/home')
       } else {
         navigate('/admin')
       }
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, navigate, user])
 
   const formik = useFormik({
     initialValues: {
