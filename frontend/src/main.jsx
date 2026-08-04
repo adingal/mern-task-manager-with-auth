@@ -7,6 +7,7 @@ import store from './store'
 import App from './App.jsx'
 import Admin from './pages/Admin.jsx'
 import UserHome from './pages/UserHome.jsx'
+import CreateUser from './pages/CreateUser.jsx'
 import NotFound from './pages/NotFound.jsx'
 
 import Loader from './components/Loader.jsx'
@@ -14,7 +15,7 @@ import Modal from './components/Modal.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 
 const router = createBrowserRouter([
-  { path: '/', element: <App /> }, // login
+  { path: '/', element: <App /> },
   {
     path: '/admin',
     element: (
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
         <Admin />
       </ProtectedRoute>
     ),
-  }, // admin
+  },
   {
     path: '/home',
     element: (
@@ -31,8 +32,15 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   }, // users
-  { path: '/user/create', element: <App /> }, // signup
-  { path: '*', element: <NotFound /> }, // 404 page
+  {
+    path: '/user/create',
+    element: (
+      <ProtectedRoute>
+        <CreateUser />
+      </ProtectedRoute>
+    ),
+  },
+  { path: '*', element: <NotFound /> },
 ])
 
 createRoot(document.getElementById('root')).render(
